@@ -1,7 +1,8 @@
 services:
   - type: web
     name: mysql
-    env: docker
+    runtime: docker
+    repo: https://github.com/Queen-mayaL/render.yaml-file
     image:
       url: mayalevi/mysql-with-superstore
     plan: starter
@@ -15,7 +16,8 @@ services:
 
   - type: web
     name: backend
-    env: docker
+    runtime: docker
+    repo: https://github.com/Queen-mayaL/render.yaml-file
     image:
       url: mayalevi/backend-app
     plan: starter
@@ -26,7 +28,8 @@ services:
 
   - type: web
     name: react
-    env: docker
+    runtime: docker
+    repo: https://github.com/Queen-mayaL/render.yaml-file
     image:
       url: mayalevi/react-app
     plan: starter
