@@ -2,10 +2,10 @@ services:
   - type: web
     name: mysql
     env: docker
-    image: mayalevi/mysql-with-superstore
+    image:
+      url: mayalevi/mysql-with-superstore
     plan: starter
-    ingress:
-      type: internal
+    internal: true  # replaces ingress.type: internal
     envVars:
       - key: MYSQL_ROOT_PASSWORD
         value: SecurePassword123
@@ -17,24 +17,22 @@ services:
   - type: web
     name: backend
     env: docker
-    image: mayalevi/backend-app
+    image:
+      url: mayalevi/backend-app
     plan: starter
-    entrypoint: ["./entrypoint.sh"]
+    # entrypoint not supported in Render YAML – handle in Dockerfile
     envVars:
       - key: DATABASE_URL
         value: mysql://root:SecurePassword123@mysql:3306/superstore
-    dependsOn:
-      - mysql
     healthCheckPath: /
-    ports:
-      - port: 8000
 
   - type: web
     name: react
     env: docker
-    image: mayalevi/react-app
+    image:
+      url: mayalevi/react-app
     plan: starter
-    dependsOn:
-      - backend
-    ports:
-      - port: 80
+    ingress:
+      rules:
+        - type: http
+          port: 80
