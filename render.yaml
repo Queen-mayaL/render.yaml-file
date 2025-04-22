@@ -1,8 +1,7 @@
 services:
-  - type: web
+  - type: pserv  # 👈 This is the key change
     name: mysql
     runtime: docker
-    repo: https://github.com/Queen-mayaL/render.yaml-file
     image:
       url: mayalevi/mysql-with-superstore
     plan: starter
@@ -13,23 +12,3 @@ services:
       name: mysql-data
       mountPath: /var/lib/mysql
       sizeGB: 1
-
-  - type: web
-    name: backend
-    runtime: docker
-    repo: https://github.com/Queen-mayaL/render.yaml-file
-    image:
-      url: mayalevi/backend-app
-    plan: starter
-    envVars:
-      - key: DATABASE_URL
-        value: mysql://root:SecurePassword123@mysql:3306/superstore
-    healthCheckPath: /
-
-  - type: web
-    name: react
-    runtime: docker
-    repo: https://github.com/Queen-mayaL/render.yaml-file
-    image:
-      url: mayalevi/react-app
-    plan: starter
